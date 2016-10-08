@@ -117,4 +117,56 @@ Language
 							  reference on the stack means, the garbage collector can't clean it up
 							  After a function terminates, the memory never is cleaned up. 
 							  Ex: forgetting to close things, never deleting keys in a map
-	**GOOGLE HOW TO** Optimize against garbage collector 
+	**GOOGLE HOW TO** Optimize against garbage collector
+
+	///////////////////
+	/// READABILITY ///
+	///////////////////
+
+	DO NOT START OUT THE LIFE OF A VALUE WITH A POINTER
+
+		var u user
+		err = json.Unmarshal([]byte(r), &u)
+		return &u, err	// escapes to heap. Shows that it is being shared.
+
+		*****DO NOT START OUT THE LIFE OF A VALUE WITH A POINTER*****
+
+		var u *user
+		err = json.Unmarshal([]byte(r), &u)
+		return u, err	// unmarshal has a pointer to my pointer (*user)
+						// Walk away from readability. Does the same thing. 
+
+	If statements
+		Put negative path in if statements. (If something goes wrong)
+
+	Variable declaration
+		The closer the variable is declared to where it's being used, the shorter
+		the name of the variable. The farther you declare the variable, the longer
+		because you need more context.
+
+	////////////////
+	// Benchmarks //
+	////////////////
+	Benchmark test measures the performance of a function / object
+
+	Break up Main Memory into "cache lines":
+		> GOAL: want to try for linear array traversal 
+		> pull out full cache line out of main memory into L3 
+		> write predictable access patterns to memory
+		> Predictable Access Patterns
+			1. Linear traversal through memory. Group / allocate data as continuously as possible 
+			   and iterate through it continuously. Prefetchers can pick up on it. Array most important in relation to 
+			2. Striding; Table look aside buffer cache. Maintains relationship OS pages & physical
+			   memory addresses. Page = OS virtual granularity.
+		> Worst case: column traversal (TLB & cache line miss)
+					  Matrix is so big, that its not on the cache line AND its not on the same TLB
+		> Linked List: sitting on the same page but not same cache line 
+		> TLB miss is worse
+		> Data access affects efficiency
+
+	////////////////////////////
+	// Data Access Efficiency //
+	////////////////////////////
+	
+
+
