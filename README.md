@@ -215,4 +215,47 @@ Language
 										-------
 										|  0  |
 										-------
+										|  0  |
+										-------
 
+		pass slice HEADER in, get slice HEADER out. 
+		data = append(data, "THING")
+		  ^
+		  USE THE SAME VARIABLE
+
+		If its different variables, there's a memory leak because theres still a reference to old backing array.
+
+		make([]string, 0, 10000) --> set the capacity to how much data you expect to append
+
+		Backing array lives in the heap. Append algorithm doubles backing array size until 1000. 
+		Then backing array increase backing array size by about 25%. 
+
+		// declare empty slice 		slice is: 
+		data := []string{}				-------
+		Use this when you 				|  *  |	--> point to nil backing data
+		unmarshal things				-------
+										|  0  |
+										-------
+										|  0  |
+										-------
+
+		// [a:b] --> a to b not including b OR a to a + length of slice2
+		slice2 := slice1[2:4:4]
+		// slice2 and slice1 share the same backing array.
+		// Once you excede the capacity on an append, you detach and get a new backing array
+
+		BE CAREFUL
+		// Declare a slice of integers with 7 values.
+		x := []int{100, 200, 300, 400, 500, 600, 700}
+
+		// Set a pointer to the second element of the slice.
+		twohundred := &x[1]
+
+		// Append a new value to the slice.
+		x = append(x, 800)
+
+		// Change the value of the second element of the slice.
+		x[1] = 250
+		CHANGES OLD BACKING ARRAY
+
+		
