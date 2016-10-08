@@ -66,7 +66,7 @@ Language
 	size of function stack is set at compile time
 	only values where size is known on compile time, can be added on the stack
 	stack is free memory --> garbage collector doesn't care. It is self cleaning
-	Go routine owns slack 
+	Go routine owns stack 
 	Leverage the stack as much as possible. Because you want to reduce pressure on the heap. 
 
 	Pass By Value:
@@ -174,4 +174,12 @@ Language
 
 	Object oriented patterns create Linked Lists & its not sympathetic to data access in Go specifically.
 
+	Array:
+		string
+		-----
+		| * |	pointer to backing array ---> |A|p|p|l|e|
+		-----
+		| 5 |	# of bytes
+		-----
+	
 
