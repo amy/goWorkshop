@@ -151,6 +151,8 @@ Language
 
 	Break up Main Memory into "cache lines":
 		> GOAL: want to try for linear array traversal 
+				hardware loves array.
+				Go loves slices 
 		> pull out full cache line out of main memory into L3 
 		> write predictable access patterns to memory
 		> Predictable Access Patterns
@@ -165,8 +167,11 @@ Language
 		> Data access affects efficiency
 
 	////////////////////////////
-	// Data Access Efficiency //
+	// Data Access Efficiency //	DATA ORIENTED DESIGN 
 	////////////////////////////
-	
+
+	Go loves slices 
+
+	Object oriented patterns create Linked Lists & its not sympathetic to data access in Go specifically.
 
 
