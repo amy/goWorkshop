@@ -175,11 +175,44 @@ Language
 	Object oriented patterns create Linked Lists & its not sympathetic to data access in Go specifically.
 
 	Array:
-		string --> 2 word data structure 
+		string --> is a 2 word data structure 
 		-----
 		| * |	pointer to backing array ---> |A|p|p|l|e|
 		-----
 		| 5 |	# of bytes
 		-----
 
+		[4]int --> size of array is PART OF THE TYPE
+		[5]int
+		Since array is known at compile time you can put the array onto the stack.
+		Array gives you continguous block of memory. 
+		Arrays are static in size. 
+	
+	Slice:
+		Reference type --> values stay on stack and point to things on heap
+
+		slice := make([]string, 5)
+		slice is 3 word data value
+
+						   0 ....	   4
+		-----			-------------------
+		| * |	---> 	|  *  | nil	| nil |		--> pointers in here point to backing arrays
+		-----			-------------------
+		| 	|			|  5  |  0	|  0  |
+		| 	|			-------------------
+		| 5	|   ---> 	length (what you have access to)
+		-----
+		| 5	|   ---> 	capacity (total # elements that exist) 
+		-----
+
+		*
+		5	--> if you try to access slice index 5, panic. Out of bounds. 
+		8	--> slice initialized to size 8. 6 - 7 not accessible. 
+
+		// declare nil slice 		data initialized to:
+		var data []string 				-------
+										| nil |
+										-------
+										|  0  |
+										-------
 
