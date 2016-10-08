@@ -111,3 +111,10 @@ Language
 		Heap size = max # of values in heap
 		Garbage collector has its own set of go routines to do the work
 			> takes 25% of computing power to do the work
+	GC (Garbage Collector):
+		Write Barrier --> tell the GC what you're doing on the heap while its running w/ coloring
+		Memory leak in Go --> reference to a value on a stack, and the reference never goes away
+							  reference on the stack means, the garbage collector can't clean it up
+							  After a function terminates, the memory never is cleaned up. 
+							  Ex: forgetting to close things, never deleting keys in a map
+	**GOOGLE HOW TO** Optimize against garbage collector 
