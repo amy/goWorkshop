@@ -1,0 +1,1 @@
+garbage collector pressure reduction: reduce things placed onto heap
