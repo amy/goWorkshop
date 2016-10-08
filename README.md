@@ -175,11 +175,11 @@ Language
 	Object oriented patterns create Linked Lists & its not sympathetic to data access in Go specifically.
 
 	Array:
-		string
+		string --> 2 word data structure 
 		-----
 		| * |	pointer to backing array ---> |A|p|p|l|e|
 		-----
 		| 5 |	# of bytes
 		-----
-	
+
 
