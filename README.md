@@ -404,8 +404,81 @@ Day 2
 	// Package/Exporting //
 	///////////////////////
 
+	Every folder is its own package
+	Every package is its own static library --> there are no concepts of subpackaging in Go 
+	Package is a mini service 
+	Each package exposes its own API for use
+	Every package should provide an API specific to one purpose 
+	Go's flaw is dependency management. No versioning. No curation systems. 
+
+	4 things you need to do before starting a project
+	1. Logging
+			What is the purpose of my logging?
+			tracing & debugging app in production & testing
+			store data? structured logging
+	2. Configuration
+			What is allowed to use configuration?
+			How do you deal with configuration?
+			Ex: environment variable
+	3. Tracing
+			Ex: a lot of microservices, how are they talking to each other?
+			Trace ID that propogates through API
+			API needs to accept context 
+	4. Metrics 
+			Show you the health of your system 
+			what are you putting into your metrics 
+			separate from logging 
+	Every project should be on the same repo
+
+	Kit Repo: for the company
+		packages that you are writing that are reusable across any project
+		packages are not allowed to be opinionated
+		your standard library
+		have a minimal amount of coupling to other packages
+
+	VENDOR is treated as a second go path
+		GB --> dave cheney
+		GOVENDOR
+
+	project
+		cmd 	 // holds project binaries 
+
+		internal // holds reasable packages only across this project
+				 // no other package can import a package inside internal, except for code inside 
+				 // internal. None of the packages inside internal should import each other.
+
+	/////////////////////////
+	// Values vs. Pointers //
+	/////////////////////////
+
+	Not about mutation. What is the nature of the type? Either type represents a primative 
+	data value or it doesnt. 
+
+	Unmarshalling always uses pointers. 
+
+	Built in types / Reference types, use value (unless unmarshaling). 
+	struct type:
+		type Time struct {
+			sec int64
+			nsec int32
+			loc *Location
+		}
+
+	// factory function returns a value of type Time, not a pointer
+	func Now() Time {}
+
+	// Nature of type, either it represents a primative data value, or its something that you
+	// change and you want to broadcast to the world
+	func (t Time) Add(d Duration) Time {}
+
+	// You're not allowed to make a copy of file. Pass the pointer.
+	// Not safe to be copied. Ex: mutex / wait group values
+	// When you're not sure, default to pointer. Then benchmark things & change things. Safe to share
+	func Open(name string) (file *File, err error)
+
 	
 
 
 
-	
+
+
