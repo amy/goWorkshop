@@ -278,6 +278,7 @@ Day 2
 		d.setAge(45)	// pointer receiver
 
 		// What's happening underneath
+		// methods are just functions and receivers are just the first parameter 
 		data.displayName(d)
 		(*data).setAge(&d, 45)
 
@@ -297,4 +298,43 @@ Day 2
 								   -----	 -----
 								   copy		 original
 								   			 Potential to escape because now data
-								   			 is shared  
+								   			 is shared
+	////////////////
+	// Interfaces //
+	////////////////
+
+	Interfaces are value-less types --> they have no state, only value
+	Structs are concrete types
+	Represent 2 word data structure
+
+	type reader interface {
+		read(b []byte) (int, error)		// Good: Send reader the slice to read
+
+		read(buf int) ([]byte, error)	// Bad: Send reader # of bytes to read. Need to make a copy. 										 Bad for GC 
+	}
+
+	type file struct {
+		name string
+	}
+
+	// read implements the reader interface for the file 
+	// compiler will identify that concrete type file implements interface type reader
+	func (file) read(b []byte) (int, error) {
+
+	}
+
+	// reader takes in a reader value 
+	func retrieve(r reader) error {
+
+	}
+
+	reader interface 
+	-----
+	| * |  ----> 	itable (file, function pointers points to file value's read function)
+	-----
+	| * |  ----> 	-------------
+	-----			| file copy |
+					-------------
+
+	store concrete type or pointers inside of interface values
+	compiler will allow storage to happen when pointer / concrete type implements interface
