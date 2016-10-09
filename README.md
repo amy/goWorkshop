@@ -363,3 +363,49 @@ Day 2
 	TIP: create a slice of interfaces
 	SIDE THING: for loop, you get a copy of whatever you are looping through
 
+	///////////////
+	// Embedding //
+	///////////////
+
+	type user struct{
+		name  string
+		email string
+	}
+
+	func (u *user) notify() {}
+
+	type admin struct {
+		person user // NOT Embedding
+		level  string 
+	}
+
+	type admin struct {
+		user			// Embedded Type 
+		level string
+	} // admin is outer type. user is inner type. 
+
+	ad := admin{ // initialize stuff }
+
+	// We can ccess the inner type's method directly. 
+	ad.user.notify() 
+
+	// The inner type's method is promoted
+	ad.notify()
+
+	// admin now satisfies notifier interface 
+	func sendNotification(n notifier) {
+		n.notify()
+	}
+
+	// inner type user's notify() method is NOT promoted to admin IF admin defines
+	// its own function notify()
+
+	///////////////////////
+	// Package/Exporting //
+	///////////////////////
+
+	
+
+
+
+	
