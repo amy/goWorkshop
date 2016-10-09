@@ -330,7 +330,7 @@ Day 2
 
 	reader interface 
 	-----
-	| * |  ----> 	itable (file, function pointers points to file value's read function)
+	| * |  ----> 	itable (file & function pointers points to file value's read function)
 	-----
 	| * |  ----> 	-------------
 	-----			| file copy |
@@ -338,3 +338,28 @@ Day 2
 
 	store concrete type or pointers inside of interface values
 	compiler will allow storage to happen when pointer / concrete type implements interface
+	itable tells you where concrete implementations are 
+
+	Interface 1st word: what type of value/pointer is being stored
+	Interface 2nd word: a pointer to the value being stored (instance of the type)
+
+	////////////////
+	// Method Set //
+	////////////////
+			ptr receiver  value receiver
+	T 		------        (t T)
+	*T 		(t *T)        (t T)
+
+	If you implement a pointer receiver, then only pointers can be stored inside the interface value.
+	Why does the blank exist?
+
+		func(d *duration) notify() {}
+		ex: duration(42).notify()	// cannot 100% of the time guarantee that you can take the 
+									// address of a value. Integretity first. 
+									// Here, 42, a literal value, is being converted to duration. 
+									// Literal values don't have an address. They aren't being 
+									// stored in an address.
+
+	TIP: create a slice of interfaces
+	SIDE THING: for loop, you get a copy of whatever you are looping through
+
