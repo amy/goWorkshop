@@ -1,4 +1,5 @@
 Day 1: Data oriented design + mechanical sympathy
+https://github.com/ardanlabs/gotraining/blob/master/courses/README.md
 
 Language
 	How to reduce pressure on garbage collection --> increases performance
@@ -258,4 +259,42 @@ Language
 		x[1] = 250
 		CHANGES OLD BACKING ARRAY
 
-		
+		HOW TO KEEP THE BACKING ARRAY ON THE STACK 
+		var b [10]int
+		slice := b[:]
+		// points to b which can be on the stack
+		// things on stack must be of predefined size 
+
+Day 2
+	Decouple code from change
+
+	/////////////
+	// Methods //
+	/////////////
+
+	Emphasize consistency whether you use a value or pointer receiver 
+
+		d.displayName()	// value receiver
+		d.setAge(45)	// pointer receiver
+
+		// What's happening underneath
+		data.displayName(d)
+		(*data).setAge(&d, 45)
+
+	Put initializers / factory funcitons into the same file as the struct 
+	Type, factory functions, methods.
+
+		// functions are a reference type
+		// f1 is a reference type
+		f1 := d.displayName 
+
+		 f1
+		-----			-----
+		| * | ----> 	| * | <--- Code
+		-----			-----
+						| * | ---> -----  OR -----
+						-----	   | d |	 | d |
+								   -----	 -----
+								   copy		 original
+								   			 Potential to escape because now data
+								   			 is shared  
